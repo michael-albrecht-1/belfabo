@@ -1,25 +1,22 @@
 <script setup lang="ts">
-import { ItemState, type ItemModel } from "@/domain/model/item.model";
+import { ThingState } from "@/domain/model/thing.model";
 import Item from "./Item.vue";
+import { inject } from "vue";
+import type { GetThingsPort } from "@/domain/ports/get-things.port";
 
-const items: ItemModel[] = [
-  { uuid: "1", title: "huile", state: ItemState.TODO },
-  { uuid: "2", title: "chips", state: ItemState.DONE },
-  { uuid: "3", title: "biere", state: ItemState.DONE },
-  { uuid: "4", title: "saucisson", state: ItemState.DONE },
-  { uuid: "5", title: "fromage", state: ItemState.TODO },
-];
+const getThingsPort = inject<GetThingsPort>("getThingsPort")!;
+const things = await getThingsPort.execute();
 
-const orderedItems = items.sort((a, b) =>
-  a.state === ItemState.DONE ? 1 : -1
+const orderedThings = things.sort((a, b) =>
+  a.state === ThingState.DONE ? 1 : -1
 );
 </script>
 
 <template>
   <div class="wrapper">
     <div class="list">
-      <template v-for="orderedItem in orderedItems" :key="item.uuid">
-        <Item :value="orderedItem" />
+      <template v-for="orderedThing in orderedThings" :key="orderedThing.uuid">
+        <Item :value="orderedThing" />
       </template>
     </div>
   </div>
@@ -41,11 +38,5 @@ const orderedItems = items.sort((a, b) =>
   align-items: flex-start;
   width: 100%;
 }
-
-/* @media (min-width: 1024px) {
-  .list {
-    width: 60%;
-  }
-} */
 </style>
-```
+```@/domain/model/thing.model

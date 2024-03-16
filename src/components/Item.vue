@@ -36,3 +36,4 @@ input[type="checkbox"] {
   }
 }
 </style>
+@/domain/model/thing.model

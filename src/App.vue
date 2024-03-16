@@ -4,12 +4,13 @@ import List from "./components/List.vue";
 </script>
 
 <template>
-      <Header msg="You did it!" />
+  <Header msg="You did it!" />
   <main>
-    <List />
+    <Suspense>
+      <List />
+    </Suspense>
   </main>
 </template>
 
-<style scoped>
-
-</style>./components/Header.vue
+<style scoped></style>
+./components/Header.vue

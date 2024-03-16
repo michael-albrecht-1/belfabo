@@ -1,10 +1,10 @@
-export type ItemModel = {
+export type Thing = {
   uuid: string;
   title: string;
-  state: ItemState;
+  state: ThingState;
 };
 
-export enum ItemState {
+export enum ThingState {
   TODO = "todo",
   DONE = "done",
 }
