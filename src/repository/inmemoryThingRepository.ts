@@ -26,7 +26,8 @@ export class InmemoryThingRepository implements ThingRepositoryPort {
       title,
       state: ThingState.TODO,
     };
-    this.things.push(thing);
+
+    this.things = [thing, ...this.things];
     return thing;
   }
 
@@ -35,7 +36,9 @@ export class InmemoryThingRepository implements ThingRepositoryPort {
     if (index === -1) {
       throw new Error("Thing not found");
     }
-    this.things[index] = thing;
+    const copy = this.things.slice();
+    copy[index] = thing;
+    this.things = copy;
     return thing;
   }
 }

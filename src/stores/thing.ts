@@ -6,9 +6,8 @@ export const useThingsStore = defineStore("things", () => {
   const things: Ref<Thing[]> = ref([]);
 
   function updateThings(newThings: Thing[]) {
-    things.value = newThings.sort((a, b) =>
-      a.state === ThingState.DONE ? 1 : -1
-    );
+    things.value = newThings;
+    sortThings();
   }
 
   function addThing(newThing: Thing) {
@@ -23,5 +22,11 @@ export const useThingsStore = defineStore("things", () => {
     things.value[index] = updatedThing;
   }
 
-  return { things, updateThings, addThing, updateThing };
+  function sortThings() {
+    things.value = things.value.sort((a) =>
+      a.state === ThingState.DONE ? 1 : -1
+    );
+  }
+
+  return { things, updateThings, addThing, updateThing, sortThings };
 });

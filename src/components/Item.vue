@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ThingState, type Thing } from "@/domain/model/thing.model";
 import type { UpdateThingPort } from "@/domain/ports/update-thing.port";
+import { useThingsStore } from "@/stores/thing";
 import { inject, ref } from "vue";
 
 const props = defineProps<{
   value: Thing;
 }>();
+
+const state = useThingsStore();
 
 const updateThingPort = inject<UpdateThingPort>("updateThingPort")!;
 const isChecked = ref(true);
@@ -17,6 +20,7 @@ const onCheckboxClick = () => {
       state: isChecked.value ? ThingState.DONE : ThingState.TODO,
     },
   });
+  state.sortThings();
 };
 </script>
 
@@ -28,7 +32,7 @@ const onCheckboxClick = () => {
       :checked="value.state === 'done'"
       @click="onCheckboxClick"
     />
-    <p :class="value.state">{{ value.title }}</p>
+    <p :class="value.state">{{ value.title }} - {{ value.uuid }}</p>
   </div>
 </template>
 
