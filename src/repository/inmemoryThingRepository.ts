@@ -19,4 +19,14 @@ export class InmemoryThingRepository implements ThingRepositoryPort {
   async getThings(): Promise<Thing[]> {
     return this.things;
   }
+
+  async createThing(title: string): Promise<Thing> {
+    const thing: Thing = {
+      uuid: Math.random().toString(36).substring(7),
+      title,
+      state: ThingState.TODO,
+    };
+    this.things.push(thing);
+    return thing;
+  }
 }

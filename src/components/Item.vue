@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { ItemModel } from "@/domain/model/item.model";
+import type { Thing } from "@/domain/model/thing.model";
 
 defineProps<{
-  value: ItemModel;
+  value: Thing;
 }>();
 </script>
 
