@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ThingState } from "@/domain/model/thing.model";
 import Item from "./Item.vue";
 import { inject } from "vue";
 import type { GetThingsPort } from "@/domain/ports/get-things.port";
@@ -7,18 +6,14 @@ import AddThing from "./AddThing.vue";
 
 const getThingsPort = inject<GetThingsPort>("getThingsPort")!;
 const things = await getThingsPort.execute();
-
-const orderedThings = things.sort((a, b) =>
-  a.state === ThingState.DONE ? 1 : -1
-);
 </script>
 
 <template>
   <div class="wrapper">
     <div class="list">
       <AddThing />
-      <template v-for="orderedThing in orderedThings" :key="orderedThing.uuid">
-        <Item :value="orderedThing" />
+      <template v-for="thing in things" :key="thing.uuid">
+        <Item :value="thing" />
       </template>
     </div>
   </div>

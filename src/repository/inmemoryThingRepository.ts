@@ -29,4 +29,13 @@ export class InmemoryThingRepository implements ThingRepositoryPort {
     this.things.push(thing);
     return thing;
   }
+
+  async updateThing(thing: Thing): Promise<Thing> {
+    const index = this.things.findIndex((t) => t.uuid === thing.uuid);
+    if (index === -1) {
+      throw new Error("Thing not found");
+    }
+    this.things[index] = thing;
+    return thing;
+  }
 }

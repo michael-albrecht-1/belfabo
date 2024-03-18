@@ -1,14 +1,33 @@
 <script setup lang="ts">
-import type { Thing } from "@/domain/model/thing.model";
+import { ThingState, type Thing } from "@/domain/model/thing.model";
+import type { UpdateThingPort } from "@/domain/ports/update-thing.port";
+import { inject, ref } from "vue";
 
-defineProps<{
+const props = defineProps<{
   value: Thing;
 }>();
+
+const updateThingPort = inject<UpdateThingPort>("updateThingPort")!;
+const isChecked = ref(true);
+
+const onCheckboxClick = () => {
+  updateThingPort.execute({
+    thing: {
+      ...props.value,
+      state: isChecked.value ? ThingState.DONE : ThingState.TODO,
+    },
+  });
+};
 </script>
 
 <template>
   <div class="item">
-    <input class="checkbox" type="checkbox" :checked="value.state === 'done'" />
+    <input
+      class="checkbox"
+      type="checkbox"
+      :checked="value.state === 'done'"
+      @click="onCheckboxClick"
+    />
     <p :class="value.state">{{ value.title }}</p>
   </div>
 </template>
