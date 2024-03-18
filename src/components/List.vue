@@ -3,6 +3,7 @@ import { ThingState } from "@/domain/model/thing.model";
 import Item from "./Item.vue";
 import { inject } from "vue";
 import type { GetThingsPort } from "@/domain/ports/get-things.port";
+import AddThing from "./AddThing.vue";
 
 const getThingsPort = inject<GetThingsPort>("getThingsPort")!;
 const things = await getThingsPort.execute();
@@ -15,6 +16,7 @@ const orderedThings = things.sort((a, b) =>
 <template>
   <div class="wrapper">
     <div class="list">
+      <AddThing />
       <template v-for="orderedThing in orderedThings" :key="orderedThing.uuid">
         <Item :value="orderedThing" />
       </template>

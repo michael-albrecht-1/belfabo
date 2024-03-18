@@ -25,15 +25,9 @@ defineProps<{
 }
 
 input[type="checkbox"] {
+  padding: 0;
   margin-right: 1rem;
   accent-color: #3fb883;
-}
-
-@media (min-width: 1024px) {
-  .item {
-    margin-top: 0;
-    padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
-  }
 }
 </style>
 @/domain/model/thing.model
